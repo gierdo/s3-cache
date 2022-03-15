@@ -13,9 +13,6 @@ try {
   const paths_to_cache = utils.getInputAsArray('paths-to-cache');
   const dir_to_unzip = core.getInput('dir-to-unzip');
 
-  console.log("paths to cache: here we go\n")
-  console.log(paths_to_cache)
-
   const cacheOperation = new CacheOperation(AWS, bucket_root, bucket_dir, cache_key, filename, paths_to_cache, dir_to_unzip);
   cacheOperation.retrieveCache().then((result) => {
     console.log(`RESULT = ${result.operation}`);
