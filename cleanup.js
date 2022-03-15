@@ -7,13 +7,13 @@ const bucket_root = core.getInput('s3-bucket-root');
 const filename = core.getInput('zip-filename');
 const bucket_dir = core.getInput('bucket-dir');
 const cache_key = core.getInput('cache-key');
-const dir_to_cache = core.getInput('dir-to-cache');
+const paths_to_cache = utils.getInputAsArray('paths-to-cache');
 
 try {
     var operation = core.getState("operation");
     console.log(`OPERATION ${operation}`);
     if (operation == 'creation') {
-        const cacheOperation = new CacheOperation(AWS, bucket_root, bucket_dir, cache_key, filename, dir_to_cache);
+        const cacheOperation = new CacheOperation(AWS, bucket_root, bucket_dir, cache_key, filename, paths_to_cache);
         cacheOperation.generateCache().then((result) => {
             core.info('Cache generation succeded');
         }, function (err) {

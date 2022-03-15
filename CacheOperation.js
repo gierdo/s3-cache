@@ -18,6 +18,8 @@ class CacheOperation {
         console.log("paths to cache: constructor")
         console.log(this.paths_to_cache)
 
+        console.log(this)
+
     }
 
     retrieveCache() {
