@@ -3,25 +3,18 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const CacheOperation = require('./CacheOperation.js');
 const process = require('process');
-
-function getInputAsArray(
-  name,
-  options
-) {
-  return core
-    .getInput(name, options)
-    .split("\n")
-    .map((s) => s.trim())
-    .filter((x) => x !== "");
-}
+const utils = require('./utils.js')
 
 try {
   const bucket_root = core.getInput('s3-bucket-root');
   const filename = core.getInput('zip-filename');
   const bucket_dir = core.getInput('bucket-dir');
   const cache_key = core.getInput('cache-key');
-  const paths_to_cache = getInputAsArray('paths-to-cache');
+  const paths_to_cache = utils.getInputAsArray('paths-to-cache');
   const dir_to_unzip = core.getInput('dir-to-unzip');
+
+
+  console.log(paths_to_cache)
 
   const cacheOperation = new CacheOperation(AWS, bucket_root, bucket_dir, cache_key, filename, paths_to_cache, dir_to_unzip);
   cacheOperation.retrieveCache().then((result) => {
