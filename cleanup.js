@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const CacheOperation = require('./CacheOperation.js');
 const fs = require('fs');
 const AWS = require('aws-sdk');
+const utils = require('./utils.js')
 
 const bucket_root = core.getInput('s3-bucket-root');
 const filename = core.getInput('zip-filename');
