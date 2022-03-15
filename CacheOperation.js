@@ -13,21 +13,12 @@ class CacheOperation {
         this.zipOperation = new ZipOperation();
         this.paths_to_cache = paths_to_cache;
         this.dir_to_unzip = dir_to_unzip;
-
-
-        console.log("paths to cache: constructor")
-        console.log(this.paths_to_cache)
-
-        console.log(this)
-
     }
 
     retrieveCache() {
         return new Promise((resolve, reject) => {
             this.s3Operation.pullFile().then((result) => {
                 this.zipOperation.unzipFile(`./${this.filename}`, this.dir_to_unzip).then((result) => {
-                    console.log("paths to cache: retrieveCache")
-                    console.log(this.paths_to_cache)
                     this.lsDir(this.paths_to_cache);
                     resolve({"operation": "retrieval"});
                 }, function (err) {
@@ -49,8 +40,6 @@ class CacheOperation {
 
     generateCache() {
         return new Promise((resolve, reject) => {
-            console.log("paths to cache: generateCache")
-            console.log(this.paths_to_cache)
             this.zipOperation.zipFile(this.filename, this.paths_to_cache).then((result) => {
                 fs.readFile(this.filename, (err, fileData) => {
                     this.s3Operation.pushFile(fileData).then((result) => {
