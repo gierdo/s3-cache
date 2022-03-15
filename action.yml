@@ -1,30 +1,30 @@
-name: 's3-cache'
-description: 'Cache user specified directory to AWS S3'
+name: "s3-cache"
+description: "Cache user specified directory to AWS S3"
 inputs:
   s3-bucket-root: # aws bucket
-    description: 'aws bucket'
+    description: "aws bucket"
     required: true
   bucket-dir:
-    description: 'bucket diretory'
+    description: "bucket diretory"
     required: true
   cache-key:
-    description: 'unique cache key'
+    description: "unique cache key"
     required: true
   zip-filename:
-    description: 'zip filename'
+    description: "zip filename"
     required: false
-    default: 'cache.tar'
-  dir-to-cache:
-    description: 'relative directory to cache'
+    default: "cache.tar"
+  paths-to-cache:
+    description: "relative path(s) to cache"
     required: true
   dir-to-unzip:
-    description: 'relative directory to unzip cache'
+    description: "relative directory to unzip cache"
     required: false
-    default: './'
+    default: "./"
 outputs:
   operation:
-    description: 'creation / retrieval'
+    description: "creation / retrieval"
 runs:
-  using: 'node12'
-  main: 'index.js'
-  post: 'cleanup.js'
+  using: "node12"
+  main: "index.js"
+  post: "cleanup.js"

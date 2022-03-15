@@ -20,14 +20,14 @@ class ZipOperation {
         })
     }
 
-    zipFile(filename, source) {
-        console.log(`C: ${source}`);
-        core.debug(`C: ${source}`);
+    zipFile(filename, sources) {
+        console.log(`C: ${sources}`);
+        core.debug(`C: ${sources}`);
         return new Promise((resolve, reject) => {
-            tar.c({
+            tar.create({
                 gzip: true,
                 file: filename
-            },[source]).then((result) => {
+            }, sources).then((result) => {
                 console.log(`tar file created: ${filename}`);
                 resolve(result);
             }, (err) => {
