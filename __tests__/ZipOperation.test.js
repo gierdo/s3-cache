@@ -16,12 +16,11 @@ test('test utils', async () => {
 test('test multipart zip', async () => {
   const input = "testfiles/foo\ntestfiles/foo2\ntestfiles/foo3"
 
-  const sources = utils.splitStringToArray(input);
+  const sources = utils.resolveFilePaths(utils.splitStringToArray(input));
 
   const zipOperation = new ZipOperation();
 
-  const output = await zipOperation.zipFile("testarchive", sources)
+  await zipOperation.zipFile("testfiles/testarchive.tar", sources)
 
-
-  console.log(output)
+  await zipOperation.unzipFile("testfiles/testarchive.tar", "/")
 })

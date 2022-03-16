@@ -10,7 +10,7 @@ try {
   const filename = core.getInput('zip-filename');
   const bucket_dir = core.getInput('bucket-dir');
   const cache_key = core.getInput('cache-key');
-  const paths_to_cache = utils.getInputAsArray('paths-to-cache');
+  const paths_to_cache = utils.resolveFilePaths(utils.getInputAsArray('paths-to-cache'));
   const dir_to_unzip = core.getInput('dir-to-unzip');
 
   const cacheOperation = new CacheOperation(AWS, bucket_root, bucket_dir, cache_key, filename, paths_to_cache, dir_to_unzip);

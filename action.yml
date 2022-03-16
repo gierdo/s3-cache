@@ -15,12 +15,12 @@ inputs:
     required: false
     default: "cache.tar"
   paths-to-cache:
-    description: "relative path(s) to cache"
+    description: "Paths to cache. May be absolute, relative or '~/foo'"
     required: true
   dir-to-unzip:
-    description: "relative directory to unzip cache"
+    description: "Relative directory to unzip cache. Note: The cache packs with absolute paths!"
     required: false
-    default: "./"
+    default: "/"
 outputs:
   operation:
     description: "creation / retrieval"

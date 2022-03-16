@@ -1,4 +1,6 @@
 const core = require('@actions/core');
+const path = require('path');
+const os = require('os');
 
 function splitStringToArray(string) {
   return string.split("\n")
@@ -14,5 +16,20 @@ function getInputAsArray(
     .getInput(name, options));
 }
 
+function resolveFilePaths(originalFilePaths) {
+  let filePaths = []
+  originalFilePaths.forEach(function (originalFilePath) {
+    if (originalFilePath.startsWith('~') || originalFilePath === '~') {
+      const filePath = originalFilePath.replace('~', os.homedir());
+      filePaths.push(filePath);
+    } else {
+      const filePath = path.resolve(originalFilePath);
+      filePaths.push(filePath);
+    }
+  });
 
-module.exports = {getInputAsArray, splitStringToArray};
+  console.log(filePaths);
+  return filePaths;
+}
+
+module.exports = {getInputAsArray, splitStringToArray, resolveFilePaths};

@@ -8,7 +8,7 @@ const bucket_root = core.getInput('s3-bucket-root');
 const filename = core.getInput('zip-filename');
 const bucket_dir = core.getInput('bucket-dir');
 const cache_key = core.getInput('cache-key');
-const paths_to_cache = utils.getInputAsArray('paths-to-cache');
+const paths_to_cache = utils.resolveFilePaths(utils.getInputAsArray('paths-to-cache'));
 
 try {
     var operation = core.getState("operation");
