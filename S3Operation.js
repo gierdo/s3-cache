@@ -18,7 +18,7 @@ class S3Operation {
     };
 
     return new Promise((resolve, reject) => {
-      var s3Stream =  this.s3.getObject(params).createReadStream();
+      var s3Stream = this.s3.getObject(params).createReadStream();
       var fileStream = fs.createWriteStream(`${this.filename}`);
       s3Stream.on('error', (err) => {
         console.log(err);
@@ -26,7 +26,7 @@ class S3Operation {
           core.warning(`CODE = ${err.code}`);
           if (err.code == 'NoSuchKey') {
             core.info('No remote cache found');
-            reject({ 'code': 'NoSuchKey' });
+            reject({'code': 'NoSuchKey'});
           } else {
             core.error(err);
             reject();
@@ -55,14 +55,14 @@ class S3Operation {
           reject();
         }
       })
-      fileStream.on('close',resolve);
+      fileStream.on('close', resolve);
       s3Stream.pipe(fileStream);
     })
   }
 
   pushFile(fileData) {
     return new Promise((resolve, reject) => {
-      this.s3.putObject({
+      this.s3.upload({
         Bucket: `${this.bucket}`,
         Key: `${this.key}`,
         Body: fileData,
