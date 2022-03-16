@@ -28,3 +28,4 @@ runs:
   using: "node12"
   main: "index.js"
   post: "cleanup.js"
+  post-if: "success()"
